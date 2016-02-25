@@ -1,0 +1,26 @@
+{
+  "name": "python_to_js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romashka50/Python_JS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/romashka50/Python_JS/issues"
+  },
+  "homepage": "https://github.com/romashka50/Python_JS#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "consolidate": "^0.14.0",
+    "express": "^4.13.4",
+    "mongodb": "^2.1.7",
+    "mongoose": "^4.4.5"
+  }
+}
