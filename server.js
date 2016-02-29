@@ -60,7 +60,7 @@ function onConnection() {
     UserHandler = require('./handlers/user');
     userRouter = require('./routers/users');
     userHandler = new UserHandler();
-
+    app.use(express.static(__dirname + '/public'));
     app.use(cookieParser("myTestPython"));
     app.use(session({
         name             : 'crm',
