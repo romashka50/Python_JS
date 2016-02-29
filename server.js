@@ -6,6 +6,9 @@ var app = express();
 var consolidate = require('consolidate');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+var MemoryStore = require('connect-mongo')(session);
 var path = require('path');
 var DB_HOST;
 var DB_NAME;
@@ -39,15 +42,34 @@ db.on('error', function(err){
 
 function onConnection() {
     var port = process.env.PORT || 3030;
+    var sessionConfig = {
+        mongooseConnection: db
+    };
+    var authStackMidlware = require('./helpers/auth');
     var postRouter;
+    var UserHandler;
     var userRouter;
+    var userHandler;
+
 
     port = parseInt(port, 10);
 
     require('./models/index');
 
     postRouter = require('./routers/posts');
+    UserHandler = require('./handlers/user');
     userRouter = require('./routers/users');
+    userHandler = new UserHandler();
+
+    app.use(cookieParser("myTestPython"));
+    app.use(session({
+        name             : 'crm',
+        key              : "myTestPython",
+        secret           : '1q2w3e4r5tdhgkdfhgejflkejgkdlgh8j0jge4547hh',
+        resave           : false,
+        saveUninitialized: false,
+        store            : new MemoryStore(sessionConfig)
+    }));
 
     app.use(bodyParser.json());
 
@@ -55,13 +77,28 @@ function onConnection() {
         res.sendFile(path.join(__dirname, 'index.html'));
     });
 
-    app.use('/posts', postRouter);
-    app.use('/users', userRouter);
+    app.post('/login', userHandler.login);
+
+    app.use('/posts', authStackMidlware, postRouter);
+    app.use('/users', authStackMidlware, userRouter);
+
+    app.use(function(err, req, res, next){
+        var status = err.status || 500;
+
+        if (process.env.NODE_ENV === 'production') {
+            res.status(status).send({error: err.message});
+            console.error(err.message + '\n' + err.stack);
+        } else {
+            res.status(status).send({error: err.message + '\n' + err.stack});
+            console.error(err.message + '\n' + err.stack);
+        }
+    });
 
     app.listen(port, function () {
         console.log('server started at port', port);
     });
 };
+
 function error(err){
     throw err;
 }

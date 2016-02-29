@@ -10,4 +10,7 @@ router.get('/', handler.getAll);
 router.get('/:id', handler.getById);
 router.post('/', handler.create);
 
+router.put('/:id', handler.update);
+router.delete('/:id', handler.remove);
+
 module.exports = router;
