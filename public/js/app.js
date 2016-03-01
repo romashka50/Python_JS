@@ -3,7 +3,8 @@
  */
 
 var user = new UserModel();
-
+var user1 = new UserModel({firstName: 'Vasya', dateOfBirth: '2015-01-03'}, {parse: true});
+var users;
 user.urlRoot = function () {
     return '/login'
 };
@@ -13,36 +14,24 @@ user.save({
     lastName : "Pupkin",
     pass     : 'testtest'
 }, {
+    validate: false,
     success: function (model, xhr, options) {
-        createUsers();
+        fetchCollection();
     },
     error  : function (model, xhr, options) {
         alert(xhr.statusText);
     }
 });
 
-function createUsers(){
-    var user1 = new UserModel({
-        firstName: "User",
-        lastName : "Ivanov_1",
-        pass     : '111111',
-        dateOfBirth: '1991-01-02'
+function fetchCollection(){
+    users = new Users([{firstName: 'Vasya'}]);
+
+    users.on('reset', function(){
+        console.dir(users.toJSON());
     });
 
-    user1.save(null, {
-        success: user1.onSuccess,
-        error: user1.onError
-    });
+    console.dir(users.toJSON());
+    users.fetch({reset: true});
 
-    var user2 = new UserModel({
-        firstName: "User_2",
-        lastName : "Ivanov_2",
-        pass     : '111111',
-        dateOfBirth: '1991-01-02'
-    });
-
-    user2.save(null, {
-        success: user1.onSuccess,
-        error: user1.onError
-    });
-};
+    user1.save();
+}
