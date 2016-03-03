@@ -3,7 +3,7 @@
  */
 
 var user = new UserModel();
-var users;
+
 
 user.urlRoot = function () {
     return '/login'
@@ -15,20 +15,16 @@ user.save({
     pass     : 'testtest'
 }, {
     validate: false,
-    success: function (model, xhr, options) {
-        fetchCollection();
+    success : function (model, xhr, options) {
+        initApp();
     },
-    error  : function (model, xhr, options) {
+    error   : function (model, xhr, options) {
         alert(xhr.statusText);
     }
 });
 
-function fetchCollection(){
-    users = new Users();
+function initApp() {
+    var users = new Users();
 
-    users.on('reset', function(){
-        console.dir(users.toJSON());
-    });
-
-    users.fetch({reset: true});
+    var userView = new View({collection: users});
 }
