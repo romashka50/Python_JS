@@ -3,8 +3,8 @@
  */
 
 var user = new UserModel();
-var user1 = new UserModel({firstName: 'Vasya', dateOfBirth: '2015-01-03'}, {parse: true});
 var users;
+
 user.urlRoot = function () {
     return '/login'
 };
@@ -24,14 +24,11 @@ user.save({
 });
 
 function fetchCollection(){
-    users = new Users([{firstName: 'Vasya'}]);
+    users = new Users();
 
     users.on('reset', function(){
         console.dir(users.toJSON());
     });
 
-    console.dir(users.toJSON());
     users.fetch({reset: true});
-
-    user1.save();
 }

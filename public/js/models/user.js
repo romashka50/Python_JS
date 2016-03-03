@@ -27,7 +27,7 @@ var UserModel = Backbone.Model.extend({
         return response;
     },
 
-    validate: function (attributes) {
+    /*validate: function (attributes) {
         var errors = [];
 
         if (!attributes.age) {
@@ -39,5 +39,5 @@ var UserModel = Backbone.Model.extend({
         if (errors.length) {
             return errors;
         }
-    }
+    }*/
 });
