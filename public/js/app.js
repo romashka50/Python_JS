@@ -3,7 +3,7 @@
  */
 
 var user = new UserModel();
-
+var users;
 
 user.urlRoot = function () {
     return '/login'
@@ -23,8 +23,12 @@ user.save({
     }
 });
 
-function initApp() {
-    var users = new Users();
-
+function initView(){
     var userView = new View({collection: users});
+}
+
+function initApp() {
+    users = new Users();
+    users.fetch({reset: true});
+    users.on('reset', initView);
 }
