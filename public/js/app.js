@@ -1,5 +1,5 @@
 define([
-    'views/user',
+    'views/user/user',
     'collections/user'
 ], function(UserView, UserCollection){
 

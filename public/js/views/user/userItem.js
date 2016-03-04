@@ -1,11 +1,12 @@
 define([
     'Backbone',
     'Underscore',
-    'text!templates/user.html'
-], function(Backbone, _, userTemplate){
+    'text!templates/userItem.html'
+], function(Backbone, _, itemTemplate){
     var View = Backbone.View.extend({
-        el: '#container',
-        tmpl: _.template(userTemplate),
+        /*el: '#container',*/
+        tagName: 'tr',
+        tmpl: _.template(itemTemplate),
 
         initialize: function(){
             this.render();
@@ -13,9 +14,9 @@ define([
 
         render    : function () {
             var self = this;
-            var users = this.collection.toJSON();
+            var user = this.model.toJSON();
 
-            this.$el.append(self.tmpl({users: users}));
+            this.$el.html(self.tmpl(user));
 
             return this;
         }
