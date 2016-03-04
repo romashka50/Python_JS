@@ -15,15 +15,11 @@ define([
         render    : function () {
             var self = this;
             var users = this.collection;
-            var $tableBody;
 
             this.$el.html(self.tmpl());
-            $tableBody = this.$el.find('#content');
 
             users.forEach(function(userModel){
                 var view = new ItemView({model: userModel});
-
-                $tableBody.append(view.$el);
             });
 
             return this;

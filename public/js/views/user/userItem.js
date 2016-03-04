@@ -4,8 +4,8 @@ define([
     'text!templates/userItem.html'
 ], function(Backbone, _, itemTemplate){
     var View = Backbone.View.extend({
-        /*el: '#container',*/
-        tagName: 'tr',
+        el: '#content',
+        /*tagName: 'tr',*/
         tmpl: _.template(itemTemplate),
 
         initialize: function(){
@@ -16,7 +16,7 @@ define([
             var self = this;
             var user = this.model.toJSON();
 
-            this.$el.html(self.tmpl(user));
+            this.$el.append(self.tmpl(user));
 
             return this;
         }
