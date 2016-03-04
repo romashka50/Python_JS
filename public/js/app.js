@@ -1,34 +1,20 @@
-/**
- * Created by romab on 01.03.2016.
- */
+define([
+    'views/user',
+    'collections/user'
+], function(UserView, UserCollection){
 
-var user = new UserModel();
-var users;
-
-user.urlRoot = function () {
-    return '/login'
-};
-
-user.save({
-    firstName: "Petya",
-    lastName : "Pupkin",
-    pass     : 'testtest'
-}, {
-    validate: false,
-    success : function (model, xhr, options) {
-        initApp();
-    },
-    error   : function (model, xhr, options) {
-        alert(xhr.statusText);
+    function renderView(){
+        return new UserView({collection: this});
     }
+
+    function init(){
+        var collection = new UserCollection();
+
+        collection.on('reset', renderView);
+        collection.fetch({reset: true});
+    }
+
+    return {
+        init: init
+    };
 });
-
-function initView(){
-    var userView = new View({collection: users});
-}
-
-function initApp() {
-    users = new Users();
-    users.fetch({reset: true});
-    users.on('reset', initView);
-}

@@ -1,0 +1,12 @@
+<%users.forEach(function(user){%>
+    <tr>
+        <td><%- user.firstName %></td>
+        <td><%- user.lastName %></td>
+    </tr>
+    <% for(var i = 0; i < 3; i++) {%>
+        <tr>
+            <td><%=i%></td>
+            <td><%var d = new Date();%><%=d%></td>
+        </tr>
+    <%}%>
+<%})%>

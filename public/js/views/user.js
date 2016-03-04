@@ -1,19 +1,25 @@
-var View = Backbone.View.extend({
-    el: '#container',
+define([
+    'Backbone',
+    'Underscore',
+    'text!templates/user.html'
+], function(Backbone, _, userTemplate){
+    var View = Backbone.View.extend({
+        el: '#container',
+        tmpl: _.template(userTemplate),
 
-    initialize: function(){
-        this.render();
-    },
+        initialize: function(){
+            this.render();
+        },
 
-    render    : function () {
-        var self = this;
+        render    : function () {
+            var self = this;
+            var users = this.collection.toJSON();
 
-        this.collection.forEach(function(userModel){
-            var user = userModel.toJSON();
+            this.$el.append(self.tmpl({users: users}));
 
-            self.$el.append('<tr><td>' + user.firstName + '</td><td>'+ user.lastName + '</td></tr>');
-        });
+            return this;
+        }
+    });
 
-        return this;
-    }
+    return View;
 });
