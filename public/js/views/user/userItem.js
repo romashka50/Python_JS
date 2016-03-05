@@ -2,17 +2,17 @@ define([
     'Backbone',
     'Underscore',
     'text!templates/userItem.html'
-], function(Backbone, _, itemTemplate){
+], function (Backbone, _, itemTemplate) {
     var View = Backbone.View.extend({
-        el: '#content',
+        el  : '#content',
         /*tagName: 'tr',*/
         tmpl: _.template(itemTemplate),
 
-        initialize: function(){
+        initialize: function () {
             this.render();
         },
 
-        render    : function () {
+        render: function () {
             var self = this;
             var user = this.model.toJSON();
 

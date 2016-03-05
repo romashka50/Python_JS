@@ -12,6 +12,15 @@ define([
             this.render();
         },
 
+        events: {
+            'click td': 'onClick'
+        },
+
+
+        onClick: function () {
+            console.log('----- clicked ---');
+        },
+
         render    : function () {
             var self = this;
             var users = this.collection;
