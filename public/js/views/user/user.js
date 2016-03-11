@@ -13,7 +13,7 @@ define([
         },
 
         events: {
-            'click td': 'onClick'
+            'click #content': 'onClick'
         },
 
 

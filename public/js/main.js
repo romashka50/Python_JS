@@ -7,6 +7,7 @@ require.config({
         Underscore: 'libs/underscore/underscore',
         jQuery: 'libs/jquery/dist/jquery',
         text: 'libs/text/text',
+        socketio: '/socket.io/socket.io',
         collections: 'collections',
         views: 'views',
         models: 'models',

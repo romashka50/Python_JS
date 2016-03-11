@@ -2,7 +2,11 @@
  * Created by romab on 15.02.2016.
  */
 var express = require('express');
+var http = require('http');
 var app = express();
+var server = http.createServer(app);
+
+var socket = require('socket.io')(server);
 var consolidate = require('consolidate');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
@@ -94,7 +98,9 @@ function onConnection() {
         }
     });
 
-    app.listen(port, function () {
+    require('./helpers/sockets')(socket);
+
+    server.listen(port, function () {
         console.log('server started at port', port);
     });
 };
